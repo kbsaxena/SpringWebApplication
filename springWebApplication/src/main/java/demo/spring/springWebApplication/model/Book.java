@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Book {
@@ -20,6 +21,9 @@ public class Book {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	private String title;
+	
+	@OneToOne
+	private Publisher publisher;
 	
 	@ManyToMany
 	@JoinTable(name="author_book", joinColumns = @JoinColumn(name ="author_id"), inverseJoinColumns = @JoinColumn(name="book_id"))
@@ -39,6 +43,14 @@ public class Book {
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+
+	public Publisher getPublisher() {
+		return publisher;
+	}
+
+	public void setPublisher(Publisher publisher) {
+		this.publisher = publisher;
 	}
 
 	public Set<Author> getAuthors() {
